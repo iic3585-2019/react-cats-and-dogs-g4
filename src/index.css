@@ -14,3 +14,13 @@ body {
 button:disabled {
   opacity: 0.5;
 }
+
+img {
+  display: inline-block;
+  height: 200px;
+  padding: 3px;
+}
+
+.images {
+  text-align: center;
+}
