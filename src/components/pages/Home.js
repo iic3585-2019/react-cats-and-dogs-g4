@@ -9,6 +9,8 @@ import {
   decrementAsync
 } from '../../modules/counter';
 
+import Images from '../images/Images';
+
 const Home = props => (
   <div>
     <h1>Home</h1>
@@ -33,6 +35,8 @@ const Home = props => (
         Go to about page via redux
       </button>
     </p>
+
+    <Images />
   </div>
 );
 
