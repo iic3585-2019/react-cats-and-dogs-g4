@@ -4,6 +4,7 @@ function Header() {
   return (
     <header>
       <Link to="/">Home</Link>
+      &nbsp;
       <Link to="/about-us">About</Link>
     </header>
   );

@@ -15,12 +15,25 @@ button:disabled {
   opacity: 0.5;
 }
 
-img {
-  display: inline-block;
+img, .image {
   height: 200px;
   padding: 3px;
 }
 
 .images {
   text-align: center;
+}
+
+.img-container {
+  position: relative;
+  display: inline-block;
+}
+
+.fav {
+  pointer-events: none;
+  position: absolute;
+  color: red;
+  font-size: 30px;
+  bottom: 5px;
+  right: 5px;
 }

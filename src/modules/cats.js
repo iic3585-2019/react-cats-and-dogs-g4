@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
 
 export const fetchCats = () => async dispatch => {
 
-  const url = 'https://api.thecatapi.com/v1/images/search/?limit=3';
+  const url = 'https://api.thecatapi.com/v1/images/search/?limit=9';
   const response = await fetch(
     url
   ).then(res => res.json());

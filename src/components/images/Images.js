@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { fetchDogs } from '../../modules/dogs';
 import { fetchCats } from '../../modules/cats';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
+import Image from './Image';
 
 const Images = ({ dogs: { dogs, loading }, cats: {cats}, fetchDogs, fetchCats }) => {
-
   useEffect(() => {
     fetchDogs();
   }, [fetchDogs]);
@@ -16,35 +18,61 @@ const Images = ({ dogs: { dogs, loading }, cats: {cats}, fetchDogs, fetchCats })
   }, [fetchCats]);
 
   const dogImages = dogs.map((dog, index) => {
-    return <img className="dog" key={index} src={dog} alt="A beautiful dog" />;
+    // return <img className="dog" key={index} src={dog} alt="A beautiful dog" />;
+    return <Image animal="dog" key={index} url={dog} id={index}/>
   });
 
   const catImages = cats.map(cat => {
-    return <img className="cat" key={cat[1]} src={cat[0]} alt="A cute cat" />;
+    //return <img className="cat" key={cat[1]} src={cat[0]} alt="A cute cat" />;
+    return <Image animal="cat" key={cat[1]} id={cat[1]} url={cat[0]}/>
   });
   
 
-  const bothImages = []
+  const bothImages = [];
+  
+  let aux = [];
+  
   for (let i = 0; i < dogImages.length; i++) {
-    bothImages.push(dogImages[i]);
-    bothImages.push(catImages[i]);
+    aux.push(dogImages[i]);
+    aux.push(catImages[i]);
+    if(aux.length === 18){
+      bothImages.push(aux);
+      aux = [];
+    }
   }
   
   const fetchBoth = () => {
     fetchDogs();
     fetchCats();
-  }
+  };
 
+  
   return (
     <div className="images">
       <h1>Random dogs/cats</h1>
       <InfiniteScroll
         dataLength={dogImages.length}
         next={fetchBoth}
-        hasMore={true}
-        loader={<h4 key>Loading...</h4>}
+        hasMore={bothImages.length < 5}
+        loader={<h4 key>Scroll down to load more...</h4>}
       />
-      {bothImages}
+
+      {bothImages.map( (stash,e) => (
+        <Carousel
+          key={'z'+e}
+          autoPlay={10000}
+          animationSpeed={5000}
+          slidesPerPage={5}
+          slidesPerScroll={1}
+          infinite
+          draggable={false}
+          offset={5}
+          centered
+          arrows
+          >
+          {stash}
+        </Carousel>))}
+      
     </div>
   );
 };

@@ -10,11 +10,14 @@ import {
 } from '../../modules/counter';
 
 import Images from '../images/Images';
+import Favorite from '../layout/Favorite';
 
 const Home = props => (
   <div>
     <h1>Home</h1>
     <p>Count: {props.count}</p>
+
+    <Favorite />
 
     <p>
       <button onClick={props.increment}>Increment</button>
