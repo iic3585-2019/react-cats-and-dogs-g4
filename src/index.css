@@ -37,3 +37,11 @@ img, .image {
   bottom: 5px;
   right: 5px;
 }
+
+.menu-item {
+  text-transform: capitalize;
+}
+
+.game-container {
+  margin: 20px;
+}
