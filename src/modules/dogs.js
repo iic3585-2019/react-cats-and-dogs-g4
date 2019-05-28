@@ -2,7 +2,6 @@ export const GET_DOGS = 'dogs/GET_DOGS';
 
 const initialState = {
   count: 0,
-  loading: true,
   dogs: []
 };
 
@@ -12,7 +11,6 @@ export default (state = initialState, action) => {
     case GET_DOGS:
       return {
         ...state,
-        loading: false,
         dogs: [...state.dogs, ...payload]
       };
 
