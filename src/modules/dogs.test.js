@@ -17,12 +17,12 @@ describe('dogs reducer', () => {
         },
         {
           type: GET_DOGS,
-          payload: ['some-dog-url']
+          payload: ['some-dog-url', 'another-dog-url']
         }
       )
     ).toEqual({
       count: 0,
-      dogs: ['some-dog-url']
+      dogs: ['some-dog-url', 'another-dog-url']
     });
   });
 });
