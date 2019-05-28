@@ -1,14 +1,17 @@
 import React from 'react';
-import { startGame, endGame, getBreeds } from '../../modules/game';
+import { startGame, endGame, getBreeds, fetchBreedImage } from '../../modules/game';
 import { connect } from 'react-redux';
 
 import SelectBreed from './SelectBreed';
 import SelectAnimal from './SelectAnimal';
+import Board from './Board';
+import Results from './Results';
+
 import Button from '@material-ui/core/Button';
 
 const mapStateToProps = state => ( state.game );
 
-const mapDispatchToProps = { startGame, endGame, getBreeds };
+const mapDispatchToProps = { startGame, endGame, getBreeds, fetchBreedImage };
 
 class Game extends React.Component {
   constructor(props) {
@@ -19,6 +22,20 @@ class Game extends React.Component {
 
   start(){
     this.props.startGame(this.props.breedSelected);
+    const {animalSelected, breedSelected, animals} = this.props;
+    if(animals.length === 0){
+      this.props.fetchBreedImage(animalSelected, breedSelected);
+
+      const extras = this.props.breeds[animalSelected+'s']
+      .filter(a => a.id !== breedSelected);
+      
+      for (let i = 0; i < 11; i++) {
+        const n = Math.floor(Math.random() * extras.length);
+        const breed = extras.splice(n, 1)[0];      
+        this.props.fetchBreedImage(animalSelected, breed.id);
+      }
+    }
+    
   }
 
   render(){
@@ -45,6 +62,9 @@ class Game extends React.Component {
           disabled = {!this.props.playing}>
           Done
         </Button>
+        <br />
+        <Board />
+        <Results />
       </div>
     );
   }

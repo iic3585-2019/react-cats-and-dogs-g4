@@ -1,4 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { selectImage } from '../../modules/game';
+
+const mapDispatchToProps = { selectImage };
+const mapStateToProps = state => ( state.game );
 
 class GameImage extends React.Component {
   constructor(props) {
@@ -11,15 +16,26 @@ class GameImage extends React.Component {
 
   _clickImage(){
     const { selected } = this.state;
+    const { id, selectImage } = this.props;
     if(!selected) {
       this.setState({selected: true});
     } else {
       this.setState({selected: false});
     }
+    selectImage(id, !selected);
   }
 
   render() {
-    const {url, breed} = this.props;
-    <img className="image game" src={url} onClick={this._clickImage} />
+    const {url, breed, breedSelected} = this.props;
+    const {selected} = this.state;
+    return(
+      <img className="image game" alt=""
+        data-correct={breed === breedSelected && selected}
+      data-selected={selected} src={url} onClick={this._clickImage} />
+    );
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)(GameImage);

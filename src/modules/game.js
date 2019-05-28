@@ -1,14 +1,19 @@
 export const GET_BREEDS = 'GET_BREEDS';
 export const SELECT_ANIMAL = 'SELECT_ANIMAL';
 export const SELECT_BREED = 'SELECT_BREED';
+export const FETCH_BREED_IMAGE = 'FETCH_BREED_IMAGE';
+export const ADD_ANIMAL = 'ADD_ANIMAL';
 export const GAME_START = 'GAME_START';
 export const GAME_OVER = 'GAME_OVER';
+export const SELECT_IMAGE = 'SELECT_IMAGE';
+
 
 const cat_url = 'https://api.thecatapi.com/v1/';
 const dog_url = 'https://dog.ceo/api/';
 
 const initialState = {
   animals: [],
+  selections: [],
   breeds: {
     cats: [],
     dogs: [],
@@ -16,6 +21,7 @@ const initialState = {
   animalSelected: 'dog',
   breedSelected: '',
   playing: false,
+  check: false,
 };
 
 export default (state = initialState, action) => {
@@ -42,6 +48,28 @@ export default (state = initialState, action) => {
         breedSelected: payload
       };
 
+    case ADD_ANIMAL:
+      if( state.animals.length === 0 || Math.random() < 1/(state.animals.length)){
+        return {
+          ...state,
+          animals: [...state.animals, payload],
+          selections: [...state.selections, false],
+        };
+      } else {
+        return {
+          ...state,
+          animals: [payload, ...state.animals],
+          selections: [...state.selections, false],
+        };
+      }
+    case SELECT_IMAGE:
+      let newSelections = [...state.selections];
+      newSelections[payload.id] = payload.value;
+      return {
+        ...state,
+        selections: [...newSelections],
+      }
+    
     case GAME_START:
       return {
         ...state,
@@ -52,6 +80,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         playing: false,
+        check: true,
       };
 
     default:
@@ -94,6 +123,13 @@ export const selectBreed = (breed) => async dispatch => {
   });
 };
 
+export const addAnimal = (animal) => async dispatch => {
+  return dispatch({
+    type: ADD_ANIMAL,
+    payload: animal,
+  });
+}
+
 export const startGame = () => async dispatch => {
   
   return dispatch({
@@ -105,5 +141,35 @@ export const startGame = () => async dispatch => {
 export const endGame = () => async dispatch => {
   return dispatch({
     type: GAME_OVER,
+  });
+};
+
+export const fetchBreedImage = (animal, breedId) => async dispatch => {
+  let selected;
+  if(animal === "cat"){
+    selected = await fetch('https://api.thecatapi.com/v1/images/search?breed_id='+breedId )
+      .then(res => res.json())
+      .then(cat => ({breed: breedId, url: cat[0].url}));
+  } else {
+    selected = await fetch('https://dog.ceo/api/breed/'+breedId+'/images/random')
+      .then(res => res.json())
+      .then(dog => ({breed: breedId, url: dog.message}));
+  }
+
+  return dispatch({
+    type: ADD_ANIMAL,
+    payload: selected,
+  });
+
+};
+
+
+export const selectImage = (id, value) => async dispatch => {
+  return dispatch({
+    type: SELECT_IMAGE,
+    payload: {
+      id,
+      value,
+    }
   });
 };
