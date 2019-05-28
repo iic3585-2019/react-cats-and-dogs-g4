@@ -29,14 +29,14 @@ const Images = ({ dogs: { dogs}, cats: {cats}, fetchDogs, fetchCats }) => {
 
   const bothImages = [];
   
-  let aux = [];
+  let carouselImages = [];
   
   for (let i = 0; i < dogImages.length; i++) {
-    aux.push(dogImages[i]);
-    aux.push(catImages[i]);
-    if(aux.length === 18){
-      bothImages.push(aux);
-      aux = [];
+    carouselImages.push(dogImages[i]);
+    carouselImages.push(catImages[i]);
+    if(carouselImages.length === 18){
+      bothImages.push(carouselImages);
+      carouselImages = [];
     }
   }
   

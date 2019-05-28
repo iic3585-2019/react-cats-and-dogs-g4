@@ -29,12 +29,12 @@ class GameImage extends React.Component {
   }
 
   render() {
-    const {url, breed, breedSelected, check} = this.props;
+    const {url, breed, breedSelected, submittedAnswer} = this.props;
     const {selected} = this.state;
     return(
       <img className="image game" alt=""
-        data-answer={breed === breedSelected && check}
-        data-done={check}
+        data-answer={breed === breedSelected && submittedAnswer}
+        data-done={submittedAnswer}
       data-selected={selected} src={url} onClick={this._clickImage} />
     );
   }
