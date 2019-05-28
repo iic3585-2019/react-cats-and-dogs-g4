@@ -22,7 +22,7 @@ const initialState = {
   animalSelected: 'dog',
   breedSelected: 'random',
   playing: false,
-  check: false,
+  submittedAnswer: false,
 };
 
 export default (state = initialState, action) => {
@@ -76,14 +76,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         playing: true,
-        check: false,
+        submittedAnswer: false,
       };
     
     case GAME_OVER:
       return {
         ...state,
         playing: false,
-        check: true,
+        submittedAnswer: true,
       };
     
     case RESET_ANIMALS:
