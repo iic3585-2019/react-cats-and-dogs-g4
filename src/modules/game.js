@@ -165,7 +165,7 @@ export const fetchBreedImage = (animal, breedId) => async dispatch => {
       .then(res => res.json())
       .then(cat => ({breed: breedId, url: cat[0].url}));
   } else {
-    selected = await fetch('https://dog.ceo/api/breed/'+breedId+'/images/random')
+    selected = await fetch('https://dog.ceo/api/breed/'+breedId+'/images/random', {mode: 'cors'})
       .then(res => res.json())
       .then(dog => ({breed: breedId, url: dog.message}));
   }
