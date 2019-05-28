@@ -20,6 +20,14 @@ img, .image {
   margin: 3px;
 }
 
+.logo {
+  height: auto;
+  width: 70%;
+  max-width: 500px;
+  display: block;
+  margin: 20px auto;
+}
+
 .images {
   text-align: center;
   margin: 10px;
@@ -31,11 +39,10 @@ img, .image {
 }
 
 .fav {
-  pointer-events: none;
   position: absolute;
-  color: red;
-  font-size: 30px;
-  bottom: 5px;
+  color:red;
+  font-size: 50px;
+  top: -15px;
   right: 5px;
 }
 
@@ -73,4 +80,39 @@ img, .image {
   border-width: 1px;
   border-color: gray;
   box-shadow: 0px 0px 5px 0px gray;
+}
+
+.navbar {
+  background-color: #990000;
+  display: flex;
+  font-family: cursive;
+}
+
+.navbar .link a{
+  font-size: 25px;
+  color: white;
+  text-decoration: none;
+  margin: 13px;
+}
+
+.navbar .link:hover {
+  background-color: white;
+}
+
+.navbar .link:hover a{
+  color:#990000;
+}
+
+.title {
+  text-align: center;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: black;
+}
+
+.slick-slider {
+  width: 97%;
+  margin: auto;
 }

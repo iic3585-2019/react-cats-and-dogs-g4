@@ -161,11 +161,11 @@ export const endGame = () => async dispatch => {
 export const fetchBreedImage = (animal, breedId) => async dispatch => {
   let selected;
   if(animal === "cat"){
-    selected = await fetch('https://api.thecatapi.com/v1/images/search?breed_id='+breedId )
+    selected = await fetch('https://api.thecatapi.com/v1/images/search?breed_id='+breedId, {mode: 'cors'} )
       .then(res => res.json())
       .then(cat => ({breed: breedId, url: cat[0].url}));
   } else {
-    selected = await fetch('https://dog.ceo/api/breed/'+breedId+'/images/random')
+    selected = await fetch('https://dog.ceo/api/breed/'+breedId+'/images/random', {mode: 'cors'})
       .then(res => res.json())
       .then(dog => ({breed: breedId, url: dog.message}));
   }

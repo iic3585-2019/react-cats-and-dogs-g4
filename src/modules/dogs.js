@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
 
 export const fetchDogs = () => async dispatch => {
   const response = await fetch(
-    'https://dog.ceo/api/breed/hound/images/random/9'
+    'https://dog.ceo/api/breeds/image/random/9'
   ).then(res => res.json());
 
   const dogs = response.message;

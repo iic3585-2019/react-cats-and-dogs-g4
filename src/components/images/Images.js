@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import { fetchDogs } from '../../modules/dogs';
 import { fetchCats } from '../../modules/cats';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Carousel from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
 import Image from './Image';
+import Slider from "react-slick";
 
-const Images = ({ dogs: { dogs, loading }, cats: {cats}, fetchDogs, fetchCats }) => {
+const Images = ({ dogs: { dogs}, cats: {cats}, fetchDogs, fetchCats }) => {
   useEffect(() => {
     fetchDogs();
   }, [fetchDogs]);
@@ -42,6 +41,7 @@ const Images = ({ dogs: { dogs, loading }, cats: {cats}, fetchDogs, fetchCats })
   }
   
   const fetchBoth = () => {
+    console.log("update");
     fetchDogs();
     fetchCats();
   };
@@ -57,22 +57,8 @@ const Images = ({ dogs: { dogs, loading }, cats: {cats}, fetchDogs, fetchCats })
         loader={<h4 key>Scroll down to load more...</h4>}
       />
 
-      {bothImages.map( (stash,e) => (
-        <Carousel
-          key={'z'+e}
-          autoPlay={10000}
-          animationSpeed={5000}
-          slidesPerPage={5}
-          slidesPerScroll={1}
-          infinite
-          draggable={false}
-          offset={5}
-          centered
-          arrows
-          >
-          {stash}
-        </Carousel>))}
-      
+      {bothImages.map( (stash, i) => (
+        <Slider infinite accesibility="false" autoplay swipeToSlide variableWidth key={i}>{stash}</Slider>))}
     </div>
   );
 };
