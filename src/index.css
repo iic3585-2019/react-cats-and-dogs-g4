@@ -17,11 +17,12 @@ button:disabled {
 
 img, .image {
   height: 200px;
-  padding: 3px;
+  margin: 3px;
 }
 
 .images {
   text-align: center;
+  margin: 10px;
 }
 
 .img-container {
@@ -36,4 +37,40 @@ img, .image {
   font-size: 30px;
   bottom: 5px;
   right: 5px;
+}
+
+.menu-item {
+  text-transform: capitalize;
+}
+
+.game-container {
+  margin: 20px;
+}
+
+*[data-selected="true"] {
+  border-style: solid;
+  border-width: 1px;
+  border-color: aqua;
+  box-shadow: 0px 0px 5px 0px rgba(5,193,255,1);
+}
+
+*[data-answer="true"][data-selected="true"] {
+  border-style: solid;
+  border-width: 2px;
+  border-color: green;
+  box-shadow: 0px 0px 10px 0px green;
+}
+
+*[data-answer="true"][data-selected="false"][data-done="true"]{
+  border-style: solid;
+  border-width: 2px;
+  border-color: red;
+  box-shadow: 0px 0px 10px 0px red;
+}
+
+*[data-answer="false"][data-selected="true"][data-done="true"]{
+  border-style: solid;
+  border-width: 1px;
+  border-color: gray;
+  box-shadow: 0px 0px 5px 0px gray;
 }
