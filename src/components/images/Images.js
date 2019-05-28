@@ -41,7 +41,6 @@ const Images = ({ dogs: { dogs}, cats: {cats}, fetchDogs, fetchCats }) => {
   }
   
   const fetchBoth = () => {
-    console.log("update");
     fetchDogs();
     fetchCats();
   };
