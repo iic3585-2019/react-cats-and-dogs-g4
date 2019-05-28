@@ -16,21 +16,25 @@ class GameImage extends React.Component {
 
   _clickImage(){
     const { selected } = this.state;
-    const { id, selectImage } = this.props;
-    if(!selected) {
-      this.setState({selected: true});
-    } else {
-      this.setState({selected: false});
+    const { id, selectImage, playing } = this.props;
+    if (playing){
+      if(!selected) {
+        this.setState({selected: true});
+      } else {
+        this.setState({selected: false});
+      }
+      selectImage(id, !selected);
     }
-    selectImage(id, !selected);
+    
   }
 
   render() {
-    const {url, breed, breedSelected} = this.props;
+    const {url, breed, breedSelected, check} = this.props;
     const {selected} = this.state;
     return(
       <img className="image game" alt=""
-        data-correct={breed === breedSelected && selected}
+        data-answer={breed === breedSelected && check}
+        data-done={check}
       data-selected={selected} src={url} onClick={this._clickImage} />
     );
   }

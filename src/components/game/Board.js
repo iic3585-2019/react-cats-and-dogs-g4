@@ -23,10 +23,11 @@ class Board extends React.Component {
   render() {
     const { animals, selections } = this.props;
     if(selections.length === 12){
-      return <div>
+      return <div className="images">
         { animals.map((a,i) => <GameImage url={a.url} id={i} key={i} breed={a.breed}></GameImage>)}
       </div>;
     }
+    
     return null;
   }
 }

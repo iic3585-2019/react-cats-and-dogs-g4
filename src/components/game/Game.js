@@ -1,5 +1,12 @@
 import React from 'react';
-import { startGame, endGame, getBreeds, fetchBreedImage } from '../../modules/game';
+import {
+  startGame,
+  endGame,
+  getBreeds,
+  fetchBreedImage,
+  selectBreed,
+  resetAnimals,
+} from '../../modules/game';
 import { connect } from 'react-redux';
 
 import SelectBreed from './SelectBreed';
@@ -11,7 +18,14 @@ import Button from '@material-ui/core/Button';
 
 const mapStateToProps = state => ( state.game );
 
-const mapDispatchToProps = { startGame, endGame, getBreeds, fetchBreedImage };
+const mapDispatchToProps = {
+  startGame,
+  endGame,
+  getBreeds,
+  fetchBreedImage,
+  selectBreed,
+  resetAnimals,
+};
 
 class Game extends React.Component {
   constructor(props) {
@@ -20,25 +34,34 @@ class Game extends React.Component {
     this.start = this.start.bind(this);
   }
 
-  start(){
-    this.props.startGame(this.props.breedSelected);
-    const {animalSelected, breedSelected, animals} = this.props;
-    if(animals.length === 0){
-      this.props.fetchBreedImage(animalSelected, breedSelected);
-
-      const extras = this.props.breeds[animalSelected+'s']
-      .filter(a => a.id !== breedSelected);
-      
-      for (let i = 0; i < 11; i++) {
-        const n = Math.floor(Math.random() * extras.length);
-        const breed = extras.splice(n, 1)[0];      
-        this.props.fetchBreedImage(animalSelected, breed.id);
-      }
+  async start(){
+    this.props.startGame();
+    const {animalSelected, breeds, breedSelected} = this.props;
+    const selBreeds = breeds[animalSelected+'s'];
+    let actBreed = breedSelected;
+    if(breedSelected === "random") {
+      const r = Math.floor(Math.random() * selBreeds.length);
+      await this.props.selectBreed(selBreeds[r].id);
+      actBreed = selBreeds[r].id;
     }
+    
+    this.props.resetAnimals();
+
+    this.props.fetchBreedImage(animalSelected, actBreed);
+
+    const extras = selBreeds.filter(a => a.id !== actBreed);
+    
+    for (let i = 0; i < 11; i++) {
+      const n = Math.floor(Math.random() * extras.length);
+      const breed = extras.splice(n, 1)[0];      
+      this.props.fetchBreedImage(animalSelected, breed.id);
+    }
+    
     
   }
 
   render(){
+    const { playing, endGame, breedsLoaded } = this.props;
     return (
       <div className="game-container">
         <SelectAnimal />
@@ -50,7 +73,7 @@ class Game extends React.Component {
           variant="contained"
           color="primary"
           onClick={this.start}
-          disabled = {this.props.playing}>
+          disabled = {playing || !breedsLoaded}>
           Start
         </Button>
         <br />
@@ -58,11 +81,12 @@ class Game extends React.Component {
           className ="button"
           variant="contained"
           color="secondary"
-          onClick={this.props.endGame}
-          disabled = {!this.props.playing}>
+          onClick={endGame}
+          disabled = {!playing}>
           Done
         </Button>
         <br />
+        { playing ? (<h1>Which of these images contains the breed selected ?</h1>) : null }
         <Board />
         <Results />
       </div>
