@@ -32,13 +32,13 @@ export default (state = initialState, action) => {
 export const addFavorite = (url, animal, id) => async dispatch => {
   return dispatch({
     type: ADD_FAVORITE,
-    payload: {url, animal, id},
+    payload: { url, animal, id }
   });
 };
 
-export const removeFavorite = (id) => async dispatch => {
+export const removeFavorite = id => async dispatch => {
   return dispatch({
     type: REMOVE_FAVORITE,
-    payload: id,
+    payload: id
   });
-}
+};

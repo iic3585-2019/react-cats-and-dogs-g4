@@ -16,13 +16,13 @@ const initialState = {
   selections: [],
   breeds: {
     cats: [],
-    dogs: [],
+    dogs: []
   },
   breedsLoaded: false,
   animalSelected: 'dog',
   breedSelected: 'random',
   playing: false,
-  submittedAnswer: false,
+  submittedAnswer: false
 };
 
 export default (state = initialState, action) => {
@@ -33,9 +33,9 @@ export default (state = initialState, action) => {
         ...state,
         breeds: {
           cats: [...payload.cats],
-          dogs: [...payload.dogs],
+          dogs: [...payload.dogs]
         },
-        breedsLoaded: true,
+        breedsLoaded: true
       };
 
     case SELECT_ANIMAL:
@@ -51,17 +51,20 @@ export default (state = initialState, action) => {
       };
 
     case ADD_ANIMAL:
-      if( state.animals.length === 0 || Math.random() < 1/(state.animals.length)){
+      if (
+        state.animals.length === 0 ||
+        Math.random() < 1 / state.animals.length
+      ) {
         return {
           ...state,
           animals: [...state.animals, payload],
-          selections: [...state.selections, false],
+          selections: [...state.selections, false]
         };
       } else {
         return {
           ...state,
           animals: [payload, ...state.animals],
-          selections: [...state.selections, false],
+          selections: [...state.selections, false]
         };
       }
     case SELECT_IMAGE:
@@ -69,28 +72,28 @@ export default (state = initialState, action) => {
       newSelections[payload.id] = payload.value;
       return {
         ...state,
-        selections: [...newSelections],
-      }
-    
+        selections: [...newSelections]
+      };
+
     case GAME_START:
       return {
         ...state,
         playing: true,
-        submittedAnswer: false,
+        submittedAnswer: false
       };
-    
+
     case GAME_OVER:
       return {
         ...state,
         playing: false,
-        submittedAnswer: true,
+        submittedAnswer: true
       };
-    
+
     case RESET_ANIMALS:
       return {
         ...state,
         animals: [],
-        selections: [],
+        selections: []
       };
 
     default:
@@ -101,89 +104,91 @@ export default (state = initialState, action) => {
 };
 
 export const getBreeds = () => async dispatch => {
+  const cats = await fetch(cat_url + 'breeds')
+    .then(res => res.json())
+    .then(data => data.map(cat => ({ id: cat.id, name: cat.name })));
 
-  const cats = await fetch(cat_url+'breeds')
+  const dogs = await fetch(dog_url + 'breeds/list/all')
     .then(res => res.json())
-    .then(data => data.map(cat => ({id: cat.id, name: cat.name})));
-  
-    
-  const dogs = await fetch(dog_url+'breeds/list/all')
-    .then(res => res.json())
-    .then(data => Object.keys(data.message).map(dog => (
-      {id: dog, name: dog}))
+    .then(data =>
+      Object.keys(data.message).map(dog => ({ id: dog, name: dog }))
     );
 
   return dispatch({
     type: GET_BREEDS,
-    payload: {cats, dogs},
+    payload: { cats, dogs }
   });
-}
+};
 
-export const selectAnimal = (animal) => async dispatch => {
+export const selectAnimal = animal => async dispatch => {
   return dispatch({
     type: SELECT_ANIMAL,
-    payload: animal,
+    payload: animal
   });
 };
 
-export const selectBreed = (breed) => async dispatch => {
+export const selectBreed = breed => async dispatch => {
   return dispatch({
     type: SELECT_BREED,
-    payload: breed,
+    payload: breed
   });
 };
 
-export const addAnimal = (animal) => async dispatch => {
+export const addAnimal = animal => async dispatch => {
   return dispatch({
     type: ADD_ANIMAL,
-    payload: animal,
+    payload: animal
   });
-}
+};
 
 export const startGame = () => async dispatch => {
   return dispatch({
-    type: GAME_START,
+    type: GAME_START
   });
 };
 
 export const resetAnimals = () => async dispatch => {
   return dispatch({
-    type: RESET_ANIMALS,
+    type: RESET_ANIMALS
   });
 };
 
 export const endGame = () => async dispatch => {
   return dispatch({
-    type: GAME_OVER,
+    type: GAME_OVER
   });
 };
 
 export const fetchBreedImage = (animal, breedId) => async dispatch => {
   let selected;
-  if(animal === "cat"){
-    selected = await fetch('https://api.thecatapi.com/v1/images/search?breed_id='+breedId, {mode: 'cors'} )
+  if (animal === 'cat') {
+    selected = await fetch(
+      'https://api.thecatapi.com/v1/images/search?breed_id=' + breedId,
+      { mode: 'cors' }
+    )
       .then(res => res.json())
-      .then(cat => ({breed: breedId, url: cat[0].url}));
+      .then(cat => ({ breed: breedId, url: cat[0].url }));
   } else {
-    selected = await fetch('https://dog.ceo/api/breed/'+breedId+'/images/random', {mode: 'cors'})
+    selected = await fetch(
+      'https://dog.ceo/api/breed/' + breedId + '/images/random',
+      { mode: 'cors' }
+    )
       .then(res => res.json())
-      .then(dog => ({breed: breedId, url: dog.message}));
+      .then(dog => ({ breed: breedId, url: dog.message }));
   }
 
   return dispatch({
     type: ADD_ANIMAL,
-    payload: selected,
+    payload: selected
   });
-
 };
-
 
 export const selectImage = (id, value) => async dispatch => {
   return dispatch({
     type: SELECT_IMAGE,
     payload: {
       id,
-      value,
+      value
     }
   });
 };

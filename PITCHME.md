@@ -6,9 +6,8 @@ marp: true
 
 # ![](public/logo.PNG)
 
-
-
 ### Grupo 4
+
 ###### Natalia Barra - Luis Chodiman - Mauricio Ortiz
 
 ---
@@ -24,6 +23,7 @@ marp: true
 ---
 
 # Componentes en React
+
 ### Componente stateless
 
 ```
@@ -39,12 +39,15 @@ const Favorites = () => (
 
 export default Favorites;
 ```
+
 ---
 
 # Componentes en React
+
 ## Componente de clase
 
 Importaciones necesarias
+
 ```
 import React from 'react';
 import { connect } from 'react-redux';
@@ -56,10 +59,13 @@ const mapStateToProps = state => state.game;
 ```
 
 ---
+
 # Componentes en React
+
 ## Componente de clase
 
 Constructor
+
 ```
 class SelectAnimal extends React.Component {
   constructor(props) {
@@ -68,17 +74,21 @@ class SelectAnimal extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 ```
+
 Método de la clase
 
 ```
   handleChange(event) {
     this.setState({ selected: event.target.value }); // Cambia estado del componente
-    this.props.selectAnimal(event.target.value); 
+    this.props.selectAnimal(event.target.value);
     this.props.selectBreed('random');
   }
 ```
+
 ---
+
 # Componentes en React
+
 ### Componente de clase
 
 Mostrar el componente
@@ -93,6 +103,7 @@ Mostrar el componente
     );
   }
 ```
+
 Export con uso de redux
 
 ```
@@ -101,11 +112,13 @@ export default connect(
   mapDispatchToProps
 )(SelectAnimal);
 ```
+
 ---
 
 # Manejo de estado con Redux
 
 ---
+
 # React Router
 
 App.js
@@ -128,7 +141,9 @@ const App = () => (
 
 export default App;
 ```
+
 ---
+
 # React Router
 
 Barra de navegación
@@ -158,13 +173,14 @@ export default Header;
 - Uso de [The Dog API](https://dog.ceo/dog-api/) y [The Cat API](https://thecatapi.com/)
 - Obtener imagenes aleatorias, listado de razas e imagen de raza específica
 
-
 ---
 
 # Uso de API
 
 Ejemplo: Obtener imagenes aleatorias de perros
+
 ###### modules/dogs.js
+
 ```
 const response = await fetch(
     'https://dog.ceo/api/breeds/image/random/18'
@@ -173,8 +189,10 @@ const response = await fetch(
   const dogs = response.message;
 ```
 
-Luego se usa la respuesta en la aplicación 
+Luego se usa la respuesta en la aplicación
+
 ###### components/images/Images.js
+
 ```
   const dogImages = dogs.map((dog, index) => {
     return <Image animal="dog" key={index} url={dog} id={index} />;
@@ -336,6 +354,7 @@ El clásico:
 ```
 yarn test
 ```
+
 ---
 
 # ![](public/logo.PNG)

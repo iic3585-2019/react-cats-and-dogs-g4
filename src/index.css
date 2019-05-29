@@ -41,7 +41,7 @@ img,
 
 .fav {
   position: absolute;
-  color:red;
+  color: red;
   font-size: 50px;
   top: -15px;
   right: 5px;
@@ -51,7 +51,7 @@ img,
   text-transform: capitalize;
 }
 
-.MuiFormLabel-root{
+.MuiFormLabel-root {
   text-align: left;
 }
 
@@ -107,7 +107,7 @@ img,
   box-shadow: 0px 2px 5px 0px #00000073;
 }
 
-.navbar .link a{
+.navbar .link a {
   font-size: 25px;
   color: white;
   text-decoration: none;
@@ -121,8 +121,8 @@ img,
   background-color: white;
 }
 
-.navbar .link:hover a{
-  color:#990000;
+.navbar .link:hover a {
+  color: #990000;
 }
 
 .title {
@@ -131,7 +131,7 @@ img,
 
 .slick-prev:before,
 .slick-next:before {
-    color: black;
+  color: black;
 }
 
 .slick-slider {

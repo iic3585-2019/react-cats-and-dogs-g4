@@ -62,7 +62,7 @@ class Game extends React.Component {
     const { playing, endGame, breedsLoaded } = this.props;
     return (
       <div className="game-container">
-      <h1 className="title">Let's play!</h1>
+        <h1 className="title">Let's play!</h1>
         <SelectAnimal />
         <SelectBreed />
         <br />

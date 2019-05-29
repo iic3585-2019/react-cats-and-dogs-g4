@@ -21,16 +21,13 @@ export default (state = initialState, action) => {
 };
 
 export const fetchCats = () => async dispatch => {
-
   const url = 'https://api.thecatapi.com/v1/images/search/?limit=18';
-  const response = await fetch(
-    url
-  ).then(res => res.json());
+  const response = await fetch(url).then(res => res.json());
 
   const cats = response.map(e => [e.url, e.id]);
 
   return dispatch({
     type: GET_CATS,
-    payload: cats,
+    payload: cats
   });
 };

@@ -28,7 +28,9 @@ class Image extends React.Component {
     if (!this.state.fav) {
       return (
         <div className="img-container">
-          <div className="fav" onClick={this._clickImage}>♡</div>
+          <div className="fav" onClick={this._clickImage}>
+            ♡
+          </div>
           <img
             className={animal + ' image'}
             src={url}
@@ -39,7 +41,9 @@ class Image extends React.Component {
     } else {
       return (
         <div className="img-container">
-          <div className="fav" onClick={this._clickImage}>♥</div>
+          <div className="fav" onClick={this._clickImage}>
+            ♥
+          </div>
           <img
             className={animal + ' image'}
             src={url}
