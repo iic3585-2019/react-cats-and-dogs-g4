@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Image from '../images/Image';
 import PropTypes from 'prop-types';
@@ -12,7 +12,18 @@ export class Favorite extends Component {
     const favs = this.props.favorites.map(f => (
       <Image key={'f-' + f.id} url={f.url} animal={f.animal} id={f.id} fav />
     ));
-    return <div className="images">{favs}</div>;
+    return (
+      <Fragment>
+        <h1> Your favorites go here </h1>
+        <div className="images">
+          {favs.length > 0 ? (
+            favs
+          ) : (
+            <p>Nothing here yet. Go ahead and add a favorite.</p>
+          )}
+        </div>
+      </Fragment>
+    );
   }
 }
 
