@@ -9,34 +9,30 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { selectAnimal, selectBreed } from '../../modules/game';
 
 const mapDispatchToProps = { selectAnimal, selectBreed };
-const mapStateToProps = state => ( state.game );
+const mapStateToProps = state => state.game;
 
-class SelectAnimal extends React.Component{
-  constructor(props){
+class SelectAnimal extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      selected: 'dog',
-    }
+      selected: 'dog'
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({selected: event.target.value});
-    this.props.selectAnimal(event.target.value)
-    this.props.selectBreed("random");
+    this.setState({ selected: event.target.value });
+    this.props.selectAnimal(event.target.value);
+    this.props.selectBreed('random');
   }
 
   render() {
-    const {selected} = this.state;
+    const { selected } = this.state;
 
     return (
-      <FormControl disabled = {this.props.playing}>
+      <FormControl disabled={this.props.playing}>
         <FormLabel>Animal</FormLabel>
-        <RadioGroup
-          name="animal"
-          value={selected}
-          onChange={this.handleChange}
-        >
+        <RadioGroup name="animal" value={selected} onChange={this.handleChange}>
           <FormControlLabel value="dog" control={<Radio />} label="Dog" />
           <FormControlLabel value="cat" control={<Radio />} label="Cat" />
         </RadioGroup>
@@ -47,5 +43,5 @@ class SelectAnimal extends React.Component{
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(SelectAnimal);
-
+  mapDispatchToProps
+)(SelectAnimal);

@@ -5,7 +5,7 @@ import {
   getBreeds,
   fetchBreedImage,
   selectBreed,
-  resetAnimals,
+  resetAnimals
 } from '../../modules/game';
 import { connect } from 'react-redux';
 
@@ -16,7 +16,7 @@ import Results from './Results';
 
 import Button from '@material-ui/core/Button';
 
-const mapStateToProps = state => ( state.game );
+const mapStateToProps = state => state.game;
 
 const mapDispatchToProps = {
   startGame,
@@ -24,7 +24,7 @@ const mapDispatchToProps = {
   getBreeds,
   fetchBreedImage,
   selectBreed,
-  resetAnimals,
+  resetAnimals
 };
 
 class Game extends React.Component {
@@ -34,33 +34,31 @@ class Game extends React.Component {
     this.start = this.start.bind(this);
   }
 
-  async start(){
+  async start() {
     this.props.startGame();
-    const {animalSelected, breeds, breedSelected} = this.props;
-    const selBreeds = breeds[animalSelected+'s'];
+    const { animalSelected, breeds, breedSelected } = this.props;
+    const selBreeds = breeds[animalSelected + 's'];
     let currentBreed = breedSelected;
-    if(breedSelected === "random") {
+    if (breedSelected === 'random') {
       const r = Math.floor(Math.random() * selBreeds.length);
       await this.props.selectBreed(selBreeds[r].id);
       currentBreed = selBreeds[r].id;
     }
-    
+
     this.props.resetAnimals();
 
     this.props.fetchBreedImage(animalSelected, currentBreed);
 
     const extras = selBreeds.filter(a => a.id !== currentBreed);
-    
+
     for (let i = 0; i < 11; i++) {
       const n = Math.floor(Math.random() * extras.length);
-      const breed = extras.splice(n, 1)[0];      
+      const breed = extras.splice(n, 1)[0];
       this.props.fetchBreedImage(animalSelected, breed.id);
     }
-    
-    
   }
 
-  render(){
+  render() {
     const { playing, endGame, breedsLoaded } = this.props;
     return (
       <div className="game-container">
@@ -69,24 +67,26 @@ class Game extends React.Component {
         <SelectBreed />
         <br />
         <Button
-          className ="button"
+          className="button"
           variant="contained"
           color="primary"
           onClick={this.start}
-          disabled = {playing || !breedsLoaded}>
+          disabled={playing || !breedsLoaded}>
           Start
         </Button>
         <br />
         <Button
-          className ="button"
+          className="button"
           variant="contained"
           color="secondary"
           onClick={endGame}
-          disabled = {!playing}>
+          disabled={!playing}>
           Done
         </Button>
         <br />
-        { playing ? (<h1>Which of these images contains the breed selected ?</h1>) : null }
+        {playing ? (
+          <h1>Which of these images contains the breed selected ?</h1>
+        ) : null}
         <Board />
         <Results />
       </div>
@@ -96,4 +96,5 @@ class Game extends React.Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(Game);
+  mapDispatchToProps
+)(Game);

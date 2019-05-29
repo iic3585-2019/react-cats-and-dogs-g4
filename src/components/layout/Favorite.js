@@ -14,7 +14,6 @@ export class Favorite extends Component {
     ));
     return (
       <Fragment>
-        <h1> Your favorites go here </h1>
         <div className="images">
           {favs.length > 0 ? (
             favs

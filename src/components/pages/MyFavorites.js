@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Favorite from '../layout/Favorite';
 
 const MyFavorites = () => (
-  <div>
+  <Fragment>
     <h1 className="title">Mis peludos favoritos</h1>
     <Favorite />
-  </div>
+  </Fragment>
 );
 
 export default MyFavorites;

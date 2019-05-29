@@ -1,4 +1,7 @@
-import reducer, { ADD_FAVORITE, REMOVE_FAVORITE } from './favorites';
+import reducer, {
+  ADD_FAVORITE,
+  REMOVE_FAVORITE
+} from '../../modules/favorites';
 
 describe('favorite reducer', () => {
   it('should return the initial state', () => {
