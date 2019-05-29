@@ -8,7 +8,7 @@ import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 import Image from './Image';
 
-const Images = ({ dogs: { dogs, loading }, cats: {cats}, fetchDogs, fetchCats }) => {
+const Images = ({ dogs: { dogs }, cats: { cats }, fetchDogs, fetchCats }) => {
   useEffect(() => {
     fetchDogs();
   }, [fetchDogs]);
@@ -18,35 +18,31 @@ const Images = ({ dogs: { dogs, loading }, cats: {cats}, fetchDogs, fetchCats })
   }, [fetchCats]);
 
   const dogImages = dogs.map((dog, index) => {
-    // return <img className="dog" key={index} src={dog} alt="A beautiful dog" />;
-    return <Image animal="dog" key={index} url={dog} id={index}/>
+    return <Image animal="dog" key={index} url={dog} id={index} />;
   });
 
   const catImages = cats.map(cat => {
-    //return <img className="cat" key={cat[1]} src={cat[0]} alt="A cute cat" />;
-    return <Image animal="cat" key={cat[1]} id={cat[1]} url={cat[0]}/>
+    return <Image animal="cat" key={cat[1]} id={cat[1]} url={cat[0]} />;
   });
-  
 
   const bothImages = [];
-  
+
   let aux = [];
-  
+
   for (let i = 0; i < dogImages.length; i++) {
     aux.push(dogImages[i]);
     aux.push(catImages[i]);
-    if(aux.length === 18){
+    if (aux.length === 18) {
       bothImages.push(aux);
       aux = [];
     }
   }
-  
+
   const fetchBoth = () => {
     fetchDogs();
     fetchCats();
   };
 
-  
   return (
     <div className="images">
       <h1>Random dogs/cats</h1>
@@ -57,9 +53,9 @@ const Images = ({ dogs: { dogs, loading }, cats: {cats}, fetchDogs, fetchCats })
         loader={<h4 key>Scroll down to load more...</h4>}
       />
 
-      {bothImages.map( (stash,e) => (
+      {bothImages.map((carouselImages, e) => (
         <Carousel
-          key={'z'+e}
+          key={'z' + e}
           autoPlay={10000}
           animationSpeed={5000}
           slidesPerPage={5}
@@ -68,11 +64,10 @@ const Images = ({ dogs: { dogs, loading }, cats: {cats}, fetchDogs, fetchCats })
           draggable={false}
           offset={5}
           centered
-          arrows
-          >
-          {stash}
-        </Carousel>))}
-      
+          arrows>
+          {carouselImages}
+        </Carousel>
+      ))}
     </div>
   );
 };
@@ -80,12 +75,12 @@ const Images = ({ dogs: { dogs, loading }, cats: {cats}, fetchDogs, fetchCats })
 Images.propTypes = {
   dogs: PropTypes.object.isRequired,
   fetchDogs: PropTypes.func,
-  fecthCats: PropTypes.func,
+  fetchCats: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   dogs: state.dogs,
-  cats: state.cats,
+  cats: state.cats
 });
 
 const mapDispatchToProps = { fetchDogs, fetchCats };
