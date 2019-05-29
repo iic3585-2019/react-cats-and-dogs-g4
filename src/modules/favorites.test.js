@@ -1,4 +1,4 @@
-import reducer, { ADD_FAVORITE } from './favorites';
+import reducer, { ADD_FAVORITE, REMOVE_FAVORITE } from './favorites';
 
 describe('favorite reducer', () => {
   it('should return the initial state', () => {
@@ -11,15 +11,47 @@ describe('favorite reducer', () => {
     expect(
       reducer(
         {
-          favorites: ['already-favorite']
+          favorites: []
         },
         {
           type: ADD_FAVORITE,
-          payload: 'some-dog-or-cat-url'
+          payload: {
+            url: 'some-url',
+            animal: 'dog',
+            id: 1
+          }
         }
       )
     ).toEqual({
-      favorites: ['already-favorite', 'some-dog-or-cat-url']
+      favorites: [
+        {
+          url: 'some-url',
+          animal: 'dog',
+          id: 1
+        }
+      ]
+    });
+  });
+
+  it('should remove favorite after REMOVE_FAVORITE', () => {
+    expect(
+      reducer(
+        {
+          favorites: [
+            {
+              url: 'some-url',
+              animal: 'dog',
+              id: 1
+            }
+          ]
+        },
+        {
+          type: REMOVE_FAVORITE,
+          payload: 1
+        }
+      )
+    ).toEqual({
+      favorites: []
     });
   });
 });
