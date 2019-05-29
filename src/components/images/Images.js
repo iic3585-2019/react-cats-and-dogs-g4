@@ -7,7 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Image from './Image';
 import Slider from 'react-slick';
 
-const Images = ({ dogs: { dogs }, cats: { cats }, fetchDogs, fetchCats }) => {
+const Images = ({ dogs: { dogs }, cats: { cats }, favorites, fetchDogs, fetchCats }) => {
   useEffect(() => {
     fetchDogs();
   }, [fetchDogs]);
@@ -15,13 +15,14 @@ const Images = ({ dogs: { dogs }, cats: { cats }, fetchDogs, fetchCats }) => {
   useEffect(() => {
     fetchCats();
   }, [fetchCats]);
-
   const dogImages = dogs.map((dog, index) => {
-    return <Image animal="dog" key={index} url={dog} id={index} />;
+    const fav = favorites.filter(f => f.id === index).length;
+    return <Image animal="dog" key={index} url={dog} id={index} fav={fav > 0}/>;
   });
 
   const catImages = cats.map(cat => {
-    return <Image animal="cat" key={cat[1]} id={cat[1]} url={cat[0]} />;
+    const fav = favorites.filter(f => f.id === cat[1]).length;
+    return <Image animal="cat" key={cat[1]} id={cat[1]} url={cat[0]} fav={fav > 0} />;
   });
 
   const bothImages = [];
@@ -75,7 +76,8 @@ Images.propTypes = {
 
 const mapStateToProps = state => ({
   dogs: state.dogs,
-  cats: state.cats
+  cats: state.cats,
+  favorites: state.favorites.favorites,
 });
 
 const mapDispatchToProps = { fetchDogs, fetchCats };

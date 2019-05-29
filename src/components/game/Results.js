@@ -5,44 +5,25 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import { resultsSeen } from '../../modules/game';
+
 const mapStateToProps = state => state.game;
+const mapDispatchToProps = { resultsSeen };
 
 class Results extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: true
-    };
-    this.handleClose = this.handleClose.bind(this);
-  }
 
-  handleClose() {
-    this.setState({ open: false });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      prevProps.submittedAnswer &&
-      !this.props.submittedAnswer &&
-      this.props.playing
-    ) {
-      console.log('change');
-      this.setState({ open: true });
-    }
-  }
 
   render() {
     const {
       selections,
       animals,
       breedSelected,
-      submittedAnswer,
-      playing
+      showResults,
+      resultsSeen,
     } = this.props;
-    const { open } = this.state;
     let title = 'Success!';
     let content = 'You did it!';
-    if (submittedAnswer) {
+    if (showResults) {
       for (let i = 0; i < selections.length; i++) {
         if (
           (selections[i] === true && animals[i].breed !== breedSelected) ||
@@ -57,8 +38,8 @@ class Results extends React.Component {
     }
     return (
       <Dialog
-        open={!playing && submittedAnswer && open}
-        onClose={this.handleClose}>
+        open={showResults}
+        onClose={resultsSeen}>
         <div>
           <DialogTitle>{title}</DialogTitle>
           <DialogContent>
@@ -72,5 +53,5 @@ class Results extends React.Component {
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps,
 )(Results);

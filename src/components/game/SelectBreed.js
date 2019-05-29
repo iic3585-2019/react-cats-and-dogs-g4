@@ -5,9 +5,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import { selectBreed } from '../../modules/game';
+import { selectBreed, resetAnimals } from '../../modules/game';
 
-const mapDispatchToProps = { selectBreed };
+const mapDispatchToProps = { selectBreed, resetAnimals };
 const mapStateToProps = state => state.game;
 
 class SelectBreed extends React.Component {
@@ -18,6 +18,7 @@ class SelectBreed extends React.Component {
 
   handleChange(event) {
     this.props.selectBreed(event.target.value);
+    this.props.resetAnimals();
   }
 
   render() {

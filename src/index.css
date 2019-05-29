@@ -45,6 +45,7 @@ img,
   font-size: 50px;
   top: -15px;
   right: 5px;
+  cursor: pointer;
 }
 
 .menu-item {
@@ -53,6 +54,10 @@ img,
 
 .MuiFormLabel-root {
   text-align: left;
+}
+
+.game.image[data-done="false"]{
+  cursor: pointer;
 }
 
 .game-container {

@@ -24,34 +24,16 @@ class Image extends React.Component {
 
   render() {
     const { animal, url } = this.props;
-    console.log('image');
-    if (!this.state.fav) {
-      return (
-        <div className="img-container">
-          <div className="fav" onClick={this._clickImage}>
-            ♡
-          </div>
-          <img
-            className={animal + ' image'}
-            src={url}
-            alt={animal === 'dog' ? 'A beautiful dog' : 'A cute cat'}
-          />
-        </div>
-      );
-    } else {
-      return (
-        <div className="img-container">
-          <div className="fav" onClick={this._clickImage}>
-            ♥
-          </div>
-          <img
-            className={animal + ' image'}
-            src={url}
-            alt={animal === 'dog' ? 'A beautiful dog' : 'A cute cat'}
-          />
-        </div>
-      );
-    }
+    return (
+      <div className="img-container">
+        <div className="fav" onClick={this._clickImage}>{!this.state.fav ? '♡' : '♥'}</div>
+        <img
+          className={animal + ' image'}
+          src={url}
+          alt={animal === 'dog' ? 'A beautiful dog' : 'A cute cat'}
+        />
+      </div>
+    );
   }
 
   componentDidUpdate(prevProps) {

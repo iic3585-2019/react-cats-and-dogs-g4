@@ -10,6 +10,11 @@ marp: true
 
 ###### Natalia Barra - Luis Chodiman - Mauricio Ortiz
 
+
+---
+
+# Pero primero... la demo!
+
 ---
 
 # Puntos principales
@@ -26,7 +31,7 @@ marp: true
 
 ### Componente stateless
 
-```
+```javascript
 import React, { Fragment } from 'react';
 import Favorite from '../layout/Favorite';
 
@@ -48,7 +53,7 @@ export default Favorites;
 
 Importaciones necesarias
 
-```
+```javascript
 import React from 'react';
 import { connect } from 'react-redux';
 import { selectAnimal, selectBreed } from '../../modules/game';
@@ -65,8 +70,7 @@ const mapStateToProps = state => state.game;
 ## Componente de clase
 
 Constructor
-
-```
+```javascript
 class SelectAnimal extends React.Component {
   constructor(props) {
     super(props);
@@ -93,7 +97,7 @@ Método de la clase
 
 Mostrar el componente
 
-```
+```javascript
   render() {
     const { selected } = this.state;
     return (
@@ -106,7 +110,7 @@ Mostrar el componente
 
 Export con uso de redux
 
-```
+```javascript
 export default connect(
   mapStateToProps,
   mapDispatchToProps
@@ -117,13 +121,201 @@ export default connect(
 
 # Manejo de estado con Redux
 
+Para explicar su funcionamiento, nos enfocaremos en el funcionamiento del juego, con `game.js`.
+
+---
+
+## Store
+Define el "*state*" de TODA la aplicación.
+
+### `modules/index.js`
+```javascript
+import { combineReducers } from 'redux';
+import dogs from './dogs';
+import cats from './cats';
+import favorites from './favorites';
+import game from './game';
+export default combineReducers({
+  dogs,
+  cats,
+  favorites,
+  game
+});
+```
+
+Cada módulo maneja su propio *state* interno.
+
+
+---
+
+## Reducers
+- "Modifican" el state asignado, según el action que reciben.
+- Modificar = Copia el state, modifica esa copia y lo retorna, resultando en el **nuevo** state.
+
+### Initial State (`game.js`)
+```javascript
+const initialState = {
+  animals: [], 
+  selections: [],
+  breeds: {
+    cats: [], 
+    dogs: [],
+  },
+  breedsLoaded: false,
+  animalSelected: 'dog',
+  breedSelected: 'random',
+  playing: false,
+  submittedAnswer: false,
+};
+```
+
+---
+
+### Reducer en `game.js`
+
+```javascript
+export default (state = initialState, action) => {
+  const { payload, type } = action;
+  switch (type) {
+    case GET_BREEDS:
+      return {
+        ...state,
+        breeds: {
+          cats: [...payload.cats],
+          dogs: [...payload.dogs],
+        },
+        breedsLoaded: true,
+      };
+
+  // More cases
+
+    default:
+      return {
+        ...state
+      };
+  }
+};
+```
+---
+
+## Actions
+
+- Señales que le indican al store que proceso realizar.
+  - type: Describe la acción. Es lo que reciben los reducers para saber cual es el siguiente estado del store.
+  - payload (opcional): Data que utiliza la store.
+
+```javascript
+{
+  type: GET_BREEDS,
+  payload: {cats, dogs},
+}
+```
+
+---
+
+- Es recomendable que cada action sea "activada" por una función (*action creator*), que será llamada fuera de la store según lo requiera (por ejemplo, un componente).
+
+```javascript
+export const getBreeds = () => async dispatch => {
+  const cats = await fetch(cat_url+'breeds')
+    .then(res => res.json())
+    .then(data => data.map(cat => ({id: cat.id, name: cat.name})));
+  const dogs = await fetch(dog_url+'breeds/list/all')
+    .then(res => res.json())
+    .then(data => Object.keys(data.message).map(dog => (
+      {id: dog, name: dog}))
+    );
+  return dispatch({
+    type: GET_BREEDS,
+    payload: {cats, dogs},
+  });
+}
+```
+- Con `dispatch`, "despachamos" la action al store. El store escucha a las acciones que son llamadas con esta función. 
+
+---
+- Los componentes pueden llamar a este *action creator*, al "conectarlos" al store (`connect`), con la función `mapDispatchToProps`.
+
+```javascript
+import { connect } from 'react-redux';
+import { getBreeds } from '../../modules/game';
+
+// Other imports and configurations...
+
+const mapDispatchToProps = { getBreeds };
+
+class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.props.getBreeds(); //
+    this.start = this.start.bind(this);
+  }
+  // More code...
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Game);
+```
+---
+
+- Los componentes también pueden conocer el state de la store y obtener sus valores, mediante `mapStateToProps`.
+
+```javascript
+const mapStateToProps = state => state.game;
+
+class Game extends React.Component {
+  // constructor and others...
+
+  async start() {
+    
+    const { animalSelected, breeds, breedSelected, startGame } = this.props;
+    // destructuramos los objetos/funciones que necesitamos
+    startGame();
+    const selBreeds = breeds[animalSelected + 's'];
+    // more code...
+  }
+};
+
+export default connect(
+  mapStateToProps, // Don't forget this!
+  mapDispatchToProps
+)(Game);
+
+```
+--- 
+
+- Por último, hay conectar la store con toda la aplicación. Para eso, utilizamos `Provider`.
+
+`/index.js`
+```javascript
+import { Provider } from 'react-redux';
+import store, { history } from './store';
+import App from './App';
+
+// ...
+
+render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <div>
+        <App />
+      </div>
+    </ConnectedRouter>
+  </Provider>,
+  target
+);
+
+```
+
 ---
 
 # React Router
 
 App.js
 
-```
+```javascript
 import { Route } from 'react-router-dom';
 // Import de componentes
 
@@ -148,7 +340,7 @@ export default App;
 
 Barra de navegación
 
-```
+```javascript
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -180,8 +372,7 @@ export default Header;
 Ejemplo: Obtener imagenes aleatorias de perros
 
 ###### modules/dogs.js
-
-```
+```javascript
 const response = await fetch(
     'https://dog.ceo/api/breeds/image/random/18'
   ).then(res => res.json());
@@ -192,8 +383,7 @@ const response = await fetch(
 Luego se usa la respuesta en la aplicación
 
 ###### components/images/Images.js
-
-```
+```javascript
   const dogImages = dogs.map((dog, index) => {
     return <Image animal="dog" key={index} url={dog} id={index} />;
   });
@@ -358,3 +548,9 @@ yarn test
 ---
 
 # ![](public/logo.PNG)
+
+---
+
+# Referencias
+
+- Explicación de Redux: https://www.valentinog.com/blog/redux/

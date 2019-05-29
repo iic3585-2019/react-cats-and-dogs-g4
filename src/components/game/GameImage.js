@@ -8,28 +8,18 @@ const mapStateToProps = state => state.game;
 class GameImage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selected: false
-    };
     this._clickImage = this._clickImage.bind(this);
   }
 
   _clickImage() {
-    const { selected } = this.state;
-    const { id, selectImage, playing } = this.props;
+    const { id, selectImage, playing, selected } = this.props;
     if (playing) {
-      if (!selected) {
-        this.setState({ selected: true });
-      } else {
-        this.setState({ selected: false });
-      }
       selectImage(id, !selected);
     }
   }
 
   render() {
-    const { url, breed, breedSelected, submittedAnswer } = this.props;
-    const { selected } = this.state;
+    const { url, breed, breedSelected, submittedAnswer, selected } = this.props;
     return (
       <img
         className="image game"

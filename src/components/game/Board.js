@@ -25,7 +25,7 @@ class Board extends React.Component {
       return (
         <div className="images">
           {animals.map((a, i) => (
-            <GameImage url={a.url} id={i} key={i} breed={a.breed} />
+            <GameImage url={a.url} id={i} key={i} breed={a.breed} selected={selections[i]}/>
           ))}
         </div>
       );

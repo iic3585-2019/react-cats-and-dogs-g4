@@ -7,6 +7,7 @@ export const GAME_START = 'GAME_START';
 export const GAME_OVER = 'GAME_OVER';
 export const SELECT_IMAGE = 'SELECT_IMAGE';
 export const RESET_ANIMALS = 'RESET_ANIMALS';
+export const RESULTS_SEEN = 'RESULTS_SEEN';
 
 const cat_url = 'https://api.thecatapi.com/v1/';
 const dog_url = 'https://dog.ceo/api/';
@@ -22,7 +23,8 @@ const initialState = {
   animalSelected: 'dog',
   breedSelected: 'random',
   playing: false,
-  submittedAnswer: false
+  submittedAnswer: false,
+  showResults: false,
 };
 
 export default (state = initialState, action) => {
@@ -67,6 +69,7 @@ export default (state = initialState, action) => {
           selections: [...state.selections, false]
         };
       }
+
     case SELECT_IMAGE:
       let newSelections = [...state.selections];
       newSelections[payload.id] = payload.value;
@@ -86,7 +89,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         playing: false,
-        submittedAnswer: true
+        submittedAnswer: true,
+        showResults: true,
       };
 
     case RESET_ANIMALS:
@@ -95,6 +99,12 @@ export default (state = initialState, action) => {
         animals: [],
         selections: []
       };
+
+    case RESULTS_SEEN:
+      return {
+        ...state,
+        showResults: false,
+      }
 
     default:
       return {
@@ -150,6 +160,12 @@ export const startGame = () => async dispatch => {
 export const resetAnimals = () => async dispatch => {
   return dispatch({
     type: RESET_ANIMALS
+  });
+};
+
+export const resultsSeen = () => async dispatch => {
+  return dispatch({
+    type: RESULTS_SEEN,
   });
 };
 
