@@ -50,7 +50,7 @@ class Results extends React.Component {
         ) {
           title = 'Fail';
           content =
-            'The correct answer was the one(s) with the red border. You must only choice the correct anwsers.';
+            'The correct answer was the one(s) with the red border. You must only choice the correct answers.';
           break;
         }
       }
