@@ -1,13 +1,13 @@
-# Furterest
+![](public/logo.PNG)
 
 A React application for cat and/or dog lovers. Uses [The Dog API](https://dog.ceo/dog-api/) and [The Cat API](https://thecatapi.com/) to display the most awesome images of the web.
 
-# Pre-requisites
+## Pre-requisites
 
 - React
 - Prettier
 
-# Installation
+## Installation
 
 Install dependencies
 
@@ -17,6 +17,6 @@ Run development server
 
 `yarn start`
 
-# Application screenshot
+## Application screenshot
 
 ![](public/Captura.PNG)
