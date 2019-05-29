@@ -4,7 +4,7 @@ import Images from '../images/Images';
 
 const Home = () => (
   <Fragment>
-    <img className="logo" src="logo.png" alt="logo" />
+    <img className="logo" src="logo.PNG" alt="logo" />
     <Images />
   </Fragment>
 );

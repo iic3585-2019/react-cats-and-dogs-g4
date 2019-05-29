@@ -30,7 +30,7 @@ class SelectAnimal extends React.Component {
     const { selected } = this.state;
 
     return (
-      <FormControl disabled={this.props.playing}>
+      <FormControl disabled={this.props.playing} className="form">
         <FormLabel>Animal</FormLabel>
         <RadioGroup name="animal" value={selected} onChange={this.handleChange}>
           <FormControlLabel value="dog" control={<Radio />} label="Dog" />

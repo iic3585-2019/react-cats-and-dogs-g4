@@ -62,8 +62,8 @@ class Game extends React.Component {
     const { playing, endGame, breedsLoaded } = this.props;
     return (
       <div className="game-container">
+      <h1 className="title">Let's play!</h1>
         <SelectAnimal />
-        <br />
         <SelectBreed />
         <br />
         <Button
@@ -74,7 +74,6 @@ class Game extends React.Component {
           disabled={playing || !breedsLoaded}>
           Start
         </Button>
-        <br />
         <Button
           className="button"
           variant="contained"
@@ -83,7 +82,6 @@ class Game extends React.Component {
           disabled={!playing}>
           Done
         </Button>
-        <br />
         {playing ? (
           <h1>Which of these images contains the breed selected ?</h1>
         ) : null}

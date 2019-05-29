@@ -51,8 +51,25 @@ img,
   text-transform: capitalize;
 }
 
+.MuiFormLabel-root{
+  text-align: left;
+}
+
 .game-container {
   margin: 20px;
+  text-align: center;
+}
+
+.game-container .button {
+  width: 100%;
+}
+
+.game-container .form {
+  max-width: 200px;
+  vertical-align: middle;
+  width: 80%;
+  display: inline-flex;
+  margin: 10px;
 }
 
 *[data-selected='true'] {

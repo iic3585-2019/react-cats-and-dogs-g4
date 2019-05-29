@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import Home from './components/pages/Home';
 import Header from './components/layout/Header';
 import Game from './components/game/Game';
-import MyFavorites from './components/pages/MyFavorites';
+import Favorites from './components/pages/Favorites';
 
 const App = () => (
   <Fragment>
@@ -11,7 +11,7 @@ const App = () => (
 
     <main>
       <Route exact path="/" component={Home} />
-      <Route exact path="/my-favorites" component={MyFavorites} />
+      <Route exact path="/favorites" component={Favorites} />
       <Route exact path="/game" component={Game} />
     </main>
   </Fragment>

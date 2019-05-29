@@ -28,7 +28,7 @@ class SelectBreed extends React.Component {
     const { breedSelected } = this.props;
 
     return (
-      <FormControl disabled={this.props.playing}>
+      <FormControl disabled={this.props.playing} className="form">
         <InputLabel htmlFor="breeds-selector">Breed</InputLabel>
         <Select
           className="menu-item"
