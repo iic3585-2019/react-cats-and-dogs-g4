@@ -2,11 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import GameImage from './GameImage';
 
-const mapStateToProps = state => ( state.game );
+const mapStateToProps = state => state.game;
 
 class Board extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.shuffleArray = this.shuffleArray.bind(this);
   }
@@ -18,20 +17,25 @@ class Board extends React.Component {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
-  };
+  }
 
   render() {
     const { animals, selections } = this.props;
-    if(selections.length === 12){
-      return <div className="images">
-        { animals.map((a,i) => <GameImage url={a.url} id={i} key={i} breed={a.breed}></GameImage>)}
-      </div>;
+    if (selections.length === 12) {
+      return (
+        <div className="images">
+          {animals.map((a, i) => (
+            <GameImage url={a.url} id={i} key={i} breed={a.breed} />
+          ))}
+        </div>
+      );
     }
-    
+
     return null;
   }
 }
 
 export default connect(
   mapStateToProps,
-  null)(Board);
+  null
+)(Board);

@@ -3,43 +3,48 @@ import { connect } from 'react-redux';
 import { selectImage } from '../../modules/game';
 
 const mapDispatchToProps = { selectImage };
-const mapStateToProps = state => ( state.game );
+const mapStateToProps = state => state.game;
 
 class GameImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: false,
-    }
+      selected: false
+    };
     this._clickImage = this._clickImage.bind(this);
   }
 
-  _clickImage(){
+  _clickImage() {
     const { selected } = this.state;
     const { id, selectImage, playing } = this.props;
-    if (playing){
-      if(!selected) {
-        this.setState({selected: true});
+    if (playing) {
+      if (!selected) {
+        this.setState({ selected: true });
       } else {
-        this.setState({selected: false});
+        this.setState({ selected: false });
       }
       selectImage(id, !selected);
     }
-    
   }
 
   render() {
-    const {url, breed, breedSelected, submittedAnswer} = this.props;
-    const {selected} = this.state;
-    return(
-      <img className="image game" alt=""
+    const { url, breed, breedSelected, submittedAnswer } = this.props;
+    const { selected } = this.state;
+    return (
+      <img
+        className="image game"
+        alt=""
         data-answer={breed === breedSelected && submittedAnswer}
         data-done={submittedAnswer}
-      data-selected={selected} src={url} onClick={this._clickImage} />
+        data-selected={selected}
+        src={url}
+        onClick={this._clickImage}
+      />
     );
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(GameImage);
+  mapDispatchToProps
+)(GameImage);
