@@ -119,6 +119,33 @@ export default connect(
 
 ---
 
+# Componentes en React
+### Componente funcional con **Hooks**
+
+Importaciones de las Hooks que usaremos:
+
+```javascript
+import React, { useEffect } from 'react';
+```
+
+Uso del hook `useEffect` para simular un `componentDidMount`
+
+
+```javascript
+const Images = ({ dogs: { dogs }, cats: { cats }, favorites, fetchDogs, fetchCats }) => {
+  useEffect(() => {
+    fetchDogs();
+  }, [fetchDogs]);
+
+  useEffect(() => {
+    fetchCats();
+  }, [fetchCats]);
+
+  return (<Some JSX...>)
+```
+
+---
+
 # Manejo de estado con Redux
 
 Para explicar su funcionamiento, nos enfocaremos en el funcionamiento del juego, con `game.js`.
