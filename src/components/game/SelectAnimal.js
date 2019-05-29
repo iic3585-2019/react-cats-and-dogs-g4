@@ -6,9 +6,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import { selectAnimal } from '../../modules/game';
+import { selectAnimal, selectBreed } from '../../modules/game';
 
-const mapDispatchToProps = { selectAnimal };
+const mapDispatchToProps = { selectAnimal, selectBreed };
 const mapStateToProps = state => ( state.game );
 
 class SelectAnimal extends React.Component{
@@ -23,6 +23,7 @@ class SelectAnimal extends React.Component{
   handleChange(event) {
     this.setState({selected: event.target.value});
     this.props.selectAnimal(event.target.value)
+    this.props.selectBreed("random");
   }
 
   render() {

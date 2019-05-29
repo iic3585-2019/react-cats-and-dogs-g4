@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Home from './components/pages/Home';
-import About from './components/pages/About';
 import Header from './components/layout/Header';
 import Game from './components/game/Game';
+import MyFavorites from './components/pages/MyFavorites';
 
 const App = () => (
   <div>
@@ -11,7 +11,7 @@ const App = () => (
 
     <main>
       <Route exact path="/" component={Home} />
-      <Route exact path="/about-us" component={About} />
+      <Route exact path="/my-favorites" component={MyFavorites} />
       <Route exact path="/game" component={Game} />
     </main>
   </div>

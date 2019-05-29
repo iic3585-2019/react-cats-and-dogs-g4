@@ -22,18 +22,18 @@ class Results extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.check && !this.props.check && this.props.playing){
+    if(prevProps.submittedAnswer && !this.props.submittedAnswer && this.props.playing){
       console.log("change");
       this.setState({open: true});
     }
   };
 
   render() {
-    const {selections, animals, breedSelected, check, playing} = this.props;
+    const {selections, animals, breedSelected, submittedAnswer, playing} = this.props;
     const {open} = this.state;
     let title = 'Success!';
     let content = 'You did it!';
-    if(check){
+    if(submittedAnswer){
       for (let i = 0; i < selections.length; i++) {
         if((selections[i] === true && animals[i].breed !== breedSelected) || 
         (animals[i].breed === breedSelected && selections[i] === false)){
@@ -45,7 +45,7 @@ class Results extends React.Component {
     }
     return (
       <Dialog
-        open={!playing && check && open}
+        open={!playing && submittedAnswer && open}
         onClose={this.handleClose}
       >
         <div>

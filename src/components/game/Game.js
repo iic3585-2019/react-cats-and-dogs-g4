@@ -38,18 +38,18 @@ class Game extends React.Component {
     this.props.startGame();
     const {animalSelected, breeds, breedSelected} = this.props;
     const selBreeds = breeds[animalSelected+'s'];
-    let actBreed = breedSelected;
+    let currentBreed = breedSelected;
     if(breedSelected === "random") {
       const r = Math.floor(Math.random() * selBreeds.length);
       await this.props.selectBreed(selBreeds[r].id);
-      actBreed = selBreeds[r].id;
+      currentBreed = selBreeds[r].id;
     }
     
     this.props.resetAnimals();
 
-    this.props.fetchBreedImage(animalSelected, actBreed);
+    this.props.fetchBreedImage(animalSelected, currentBreed);
 
-    const extras = selBreeds.filter(a => a.id !== actBreed);
+    const extras = selBreeds.filter(a => a.id !== currentBreed);
     
     for (let i = 0; i < 11; i++) {
       const n = Math.floor(Math.random() * extras.length);

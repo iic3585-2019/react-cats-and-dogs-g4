@@ -1,14 +1,10 @@
 import React, { Fragment } from 'react';
 
 import Images from '../images/Images';
-import Favorite from '../layout/Favorite';
 
 const Home = () => (
   <Fragment>
-    <h1>Home</h1>
-
-    <Favorite />
-
+    <img className="logo" src="logo.png" />
     <Images />
   </Fragment>
 );
