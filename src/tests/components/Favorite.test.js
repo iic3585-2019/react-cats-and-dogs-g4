@@ -2,8 +2,8 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { Favorite } from './Favorite';
-import Image from '../images/Image';
+import { Favorite } from '../../components/layout/Favorite';
+import Image from '../../components/images/Image';
 
 configure({ adapter: new Adapter() });
 

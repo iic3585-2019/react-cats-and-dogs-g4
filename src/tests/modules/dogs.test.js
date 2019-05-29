@@ -1,4 +1,4 @@
-import reducer, { GET_DOGS } from './dogs';
+import reducer, { GET_DOGS } from '../../modules/dogs';
 
 describe('dogs reducer', () => {
   it('should return the initial state', () => {
